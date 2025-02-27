@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+    
+    <div class="stats">
+        <h3>Your Credits: {{ user.credits }}</h3>
+        <h3>Premium Status: {% if user.premium_member %}Active{% else %}Inactive{% endif %}</h3>
+        <h3>Total Referrals: {{ user.referrals.count }}</h3>
+    </div>
+
+    <div class="referral-section">
+        <h2>Your Referral Link</h2>
+        <input type="text" value="{{ referral_link }}" readonly>
+        <button onclick="navigator.clipboard.writeText('{{ referral_link }}')">Copy</button>
+    </div>
+
+    <div class="referral-list">
+        <h2>Your Referrals</h2>
+        <ul>
+            {% for referral in referrals %}
+                <li>{{ referral.referred_user.email }} - {{ referral.created_at }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
